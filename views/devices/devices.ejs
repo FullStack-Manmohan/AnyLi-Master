@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+<div>
+    <p><%=currentUser.name%>'s Devices</p>
+    <a href="/device/new">Add a new device</a>
+        <% devices.forEach((device) => { %>
+            <div style="border: 1px solid gray; margin: 5px">
+                <h1><%=device.name%></h1>
+                <%if(device.status == true){%>
+                    <p>Status : ON</p>
+                <%} else{ %>
+                    <p>Status : OFF</p>
+                <%}%>
+                <form action="/device/<%=device._id%>/edit/status?_method=PUT" method="post">
+                    <input type="submit" name="switchStatusButton" value="Switch">
+                </form>
+
+                <div>
+                    <p>
+                        Connection Key : <%=device.connectionKey%>
+                        <br><em>Use this connection key to connect Device</em>
+                    </p>
+                </div>
+                <a href="/device/<%=device._id%>/edit">Edit</a>
+
+                <form action="/device/<%=device._id%>?_method=DELETE" method="post">
+                    <input type="submit" name="delete" value="Delete">
+                </form>
+            </div>
+            <% }); %>
+</div>
+
+<%- include('../partials/footer') %>
+
+
